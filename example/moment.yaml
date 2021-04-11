@@ -1,0 +1,19 @@
+port: 54639
+show:   # 相对`static`字段的路径
+    - 1.jpg
+    - 2.jpg
+
+# 用户头像
+avatar: avatar.jpg # 相对`static`字段的路径
+
+
+# --------------------------------
+# 以下字段路径相对于执行路径
+
+# 工作目录
+file: ./example/workdir
+
+# 配置 https
+#tls:
+#    cert: cert.pem
+#    key: key.pem
