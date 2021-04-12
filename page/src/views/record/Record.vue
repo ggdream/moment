@@ -22,6 +22,7 @@
         bottom
         right
         fab
+        to="/edit"
       >
         <v-icon>mdi-plus</v-icon>
       </v-btn>

@@ -23,11 +23,12 @@ func staticRoutes(o *gin.RouterGroup) {
 // dynamic routes
 func dynamicRoutes(x *gin.RouterGroup) {
 	x.GET("/meta/info", meta.ShowInfo)
-	x.GET("/verify", login.Verify)
+	x.POST("/verify", login.Verify)
 
 	x.GET("/record/get", record.GetRecord)
 	//x.GET("/record/set", safe.VerifyToken(), record.SetRecord)
-	x.GET("/record/set", record.SetRecord)
+	x.POST("/record/set", record.SetRecord)
 	x.GET("/record/text", file.TextGetter)
+	x.POST("/record/image", file.UploadImage)
 }
 

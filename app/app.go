@@ -20,6 +20,7 @@ import (
 func New(fs embed.FS) {
 	Init()
 
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 	r.MaxMultipartMemory = 4 << 20
 	r.Use(log.WareLog(), cors.WareCors(), static.WareStatic(fs))
@@ -59,7 +60,6 @@ func Init() {
 		panic(err)
 	}
 	global.Config = conf
-	fmt.Println(1111, global.Records)
 	priPem, pubPem := safety.GenerateKeyPairs()
 	global.PublicKey = pubPem
 	printPriPemKey(priPem)

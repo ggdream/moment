@@ -2,6 +2,7 @@ package model
 
 
 type VerifyForm struct {
-	Text		string	`json:"file" form:"file"`
-	Hash		string	`json:"hash" form:"hash"`
+	Time		int	`json:"time" form:"time"`
+	Salt		string	`json:"salt" form:"salt"`
+	Sign		string	`json:"sign" form:"sign"`
 }

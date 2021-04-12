@@ -1,9 +1,9 @@
-import Encrypt from './encrypt'
+
+// import Encrypt from './encrypt'
 import Signature from './signature'
 
 
 export default class Safety {
-    static sign(data: string): string {
-        return new Signature().canvasSign(data)
-    }
+    static signCanvas = (data: string): string => new Signature().canvasSign(data)
+    static signVerify = (data: string, privateKey: string): string | false => new Signature().signVerify(data, privateKey)
 }

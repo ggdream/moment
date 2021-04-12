@@ -1,12 +1,15 @@
 package login
 
 import (
+	"fmt"
+	"strconv"
+	"time"
+
 	"github.com/ggdream/moment/global"
 	"github.com/ggdream/moment/model"
 	"github.com/ggdream/moment/tools/errno"
 	"github.com/ggdream/moment/tools/safety"
 	"github.com/gin-gonic/gin"
-	"time"
 )
 
 
@@ -16,8 +19,8 @@ func Verify(c *gin.Context)  {
 		errno.Return(c, errno.FAILED, nil, "表单错误")
 		return
 	}
-
-	if !safety.VerifySign(form.Text, form.Hash) {
+	fmt.Println(strconv.Itoa(form.Time)+form.Salt)
+	if !safety.VerifySign(strconv.Itoa(form.Time)+form.Salt, form.Sign) {
 		errno.Return(c, errno.FAILED, nil, "认证失败")
 		return
 	}

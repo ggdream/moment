@@ -2,10 +2,11 @@ import axios, {
     AxiosRequestConfig,
     AxiosInstance
 } from 'axios'
+import qs from 'qs'
 
 
 export default class Request {
-    private requester: AxiosInstance
+    protected requester: AxiosInstance
     constructor(config?: AxiosRequestConfig) {
         this.requester = axios.create(config)
     }
@@ -17,7 +18,13 @@ export default class Request {
     } 
     // eslint-disable-next-line
     async post<T = any>(url: string, data?: any): Promise<T> {
-        const res = await this.requester.post(url, data)
+        console.log(data);
+        
+        const res = await this.requester.post(url, qs.stringify(data), {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            }
+        })
         return res.data as T
     } 
 }

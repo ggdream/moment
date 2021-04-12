@@ -2,8 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
+import mavonEditor from './plugins/editor'
 import Http from './net'
 
+
+Vue.use(mavonEditor)
 
 Vue.config.productionTip = false
 

@@ -1,4 +1,5 @@
 import JSEncrypt from 'jsencrypt'
+import { SHA256 } from './hash'
 
 
 interface Keys {
@@ -19,20 +20,32 @@ export default class RSA {
 
     public setPrivateKey = (privateKey: string): void => this.en.setPrivateKey(privateKey)
 
-    public encrypt = (data: string) => this.en.encrypt(data)
+    public encrypt = (data: string): string | false => this.en.encrypt(data)
 
-    public decrypt = (data: string) => this.en.decrypt(data)
+    public decrypt = (data: string): string | false => this.en.decrypt(data)
 
 
-    static encrypt(data: string, publicKey: string) {
+    static encrypt(data: string, publicKey: string): string | false {
         const e = new JSEncrypt({})
         e.setPublicKey(publicKey)
         return e.encrypt(data)
     }
 
-    static decrypt(data: string, privateKey: string) {
+    static decrypt(data: string, privateKey: string): string | false {
         const e = new JSEncrypt({})
         e.setPrivateKey(privateKey)
         return e.decrypt(data)
+    }
+
+    static sign(data: string, privateKey: string): string | false {
+        const e = new JSEncrypt({})
+        e.setPrivateKey(privateKey)
+        return e.sign(data, SHA256, "sha256")
+    }
+
+    static verify(data: string, signature: string, publicKey: string): boolean {
+        const e = new JSEncrypt({})
+        e.setPublicKey(publicKey)
+        return e.verify(data, signature, SHA256)
     }
 }

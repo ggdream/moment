@@ -1,7 +1,8 @@
 import MetaInfoImple from './meta'
 import {RecordGetImple, RecordSetImple, RecordReqModel, RecordSaveModel} from './record'
 import TextImple from './text'
-import VerifyImple from './verify'
+import ImageImple from './image'
+import VerifyImple, { VerifyModel } from './verify'
 
 
 export {
@@ -11,5 +12,7 @@ export {
     RecordReqModel,
     RecordSaveModel,
     TextImple,
+    ImageImple,
     VerifyImple,
+    VerifyModel,
 }

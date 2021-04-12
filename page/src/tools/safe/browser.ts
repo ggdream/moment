@@ -64,7 +64,7 @@ export class BrowserInfo {
 
 export class Canvas {
     static bin2hex(data: string): string {
-        let res: string = ''
+        let res = ''
 
         for (let i=0; i < data.length; i++) {
             const h = data.charCodeAt(i).toString(16)
@@ -76,7 +76,8 @@ export class Canvas {
 
     public get(data: string): string {
         const canvas: HTMLCanvasElement = document.createElement('canvas')
-        const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!
+        const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d")
+        if (ctx === null) return ""
 
         ctx.textBaseline = "top"
         ctx.font = "16px Arial"
