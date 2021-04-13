@@ -13,7 +13,12 @@ export default class ServiceNet extends Request {
 
     getMetaInfo = (): Promise<model.MetaInfoImple> => this.get<model.MetaInfoImple>('/meta/info')
     getRecords = (data: model.RecordReqModel): Promise<model.RecordGetImple> => this.get<model.RecordGetImple>('/record/get', data)
-    setRecord = (data: model.RecordSaveModel): Promise<model.RecordSetImple> => this.post<model.RecordSetImple>('/record/set', data)
+    async setRecord(data: model.RecordSaveModel, token: string): Promise<model.RecordSetImple> {
+        const res = await this.requester.post('/record/set', data, {
+            headers: {token}
+        })
+        return res.data
+    }
     getText = (vid: string): Promise<model.TextImple> => this.get<model.TextImple>('/record/text', {v: vid})
     getTokenByVerify = (data: model.VerifyModel): Promise<model.VerifyImple> => this.post<model.VerifyImple>('/verify', data)
     async uploadImage(file: File): Promise<model.ImageImple> {

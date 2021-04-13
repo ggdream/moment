@@ -1,13 +1,15 @@
 package router
 
 import (
+	"net/http"
+
 	"github.com/ggdream/moment/global"
+	"github.com/ggdream/moment/middleware/safe"
 	"github.com/ggdream/moment/service/file"
 	"github.com/ggdream/moment/service/login"
 	"github.com/ggdream/moment/service/meta"
 	"github.com/ggdream/moment/service/record"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 
@@ -26,8 +28,7 @@ func dynamicRoutes(x *gin.RouterGroup) {
 	x.POST("/verify", login.Verify)
 
 	x.GET("/record/get", record.GetRecord)
-	//x.GET("/record/set", safe.VerifyToken(), record.SetRecord)
-	x.POST("/record/set", record.SetRecord)
+	x.POST("/record/set", safe.VerifyToken(), record.SetRecord)
 	x.GET("/record/text", file.TextGetter)
 	x.POST("/record/image", file.UploadImage)
 }

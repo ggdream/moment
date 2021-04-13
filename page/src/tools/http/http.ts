@@ -18,8 +18,6 @@ export default class Request {
     } 
     // eslint-disable-next-line
     async post<T = any>(url: string, data?: any): Promise<T> {
-        console.log(data);
-        
         const res = await this.requester.post(url, qs.stringify(data), {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded'

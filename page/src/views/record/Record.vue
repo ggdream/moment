@@ -40,7 +40,7 @@ export default Vue.extend({
   data() {
     return {
       data: [] as Array<Record>,
-      isEnd: false
+      isEnd: false,
     };
   },
   components: {
@@ -66,7 +66,7 @@ export default Vue.extend({
     },
     wheelListener() {
       window.addEventListener("scroll", () => {
-        const clientHeight = document.documentElement.clientHeight; 
+        const clientHeight = document.documentElement.clientHeight;
         const scrollHeight = document.body.scrollHeight;
         const scrollTop = document.documentElement.scrollTop;
 

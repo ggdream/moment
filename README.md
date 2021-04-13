@@ -1,4 +1,4 @@
-# page
+# 轻量级迷你博客
 
 ## 安装
 
@@ -18,7 +18,7 @@
     ~~~sh
     # require golang sdk version >= 1.16 and node.js env
     $ git clone https://github.com/ggdream/moment.git
-    $ cd page; npm i; npm run build
-    $ cd ..; go build
+    $ ./run.cmd     # Windows
+    $ ./run.sh      # Linux or MacOS
     # must compile the front page before running `go build` to be compiled into the binary file through `embed feature`
     ~~~

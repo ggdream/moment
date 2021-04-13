@@ -1,6 +1,7 @@
 <template>
   <div class="edit">
     <v-dialog
+      persistent
       v-model="dialog"
       width="60vw"
     >
@@ -39,7 +40,6 @@
     <mavon-editor
       v-show="!dialog"
       ref="marker"
-      v-model="value"
       :toolbars="markdown.toolbars"
       @imgAdd="addImage"
       @save="onSave"
@@ -109,7 +109,7 @@ export default Vue.extend({
           subtitle: new Date().toString(),
           image: "1.jpg",
           text: render,
-        });
+        }, this.token);
         this.verifyMsg = res.msg;
       } catch (error) {
         this.verifyMsg = "服务器暂时无法连接哟~~";
