@@ -40,6 +40,7 @@ export default Vue.extend({
   data() {
     return {
       data: [] as Array<Record>,
+      isEnd: false
     };
   },
   components: {
@@ -51,25 +52,29 @@ export default Vue.extend({
   },
   methods: {
     async reqRecords() {
+      if (this.isEnd) return;
       const res = await this.$http.getRecords({
         offset: this.data.length,
         number: 4,
       });
-      this.data = this.data.concat(res.data);
+      if (res.code !== 0) return;
+      if (res.data.length !== 0) {
+        this.data = this.data.concat(res.data);
+      } else {
+        this.isEnd = true;
+      }
     },
     wheelListener() {
-      window.addEventListener('scroll', () => {
-
-        const clientHeight  = document.documentElement.clientHeight; //浏览器高度
+      window.addEventListener("scroll", () => {
+        const clientHeight = document.documentElement.clientHeight; 
         const scrollHeight = document.body.scrollHeight;
         const scrollTop = document.documentElement.scrollTop;
 
-        if ((scrollTop + clientHeight) >= scrollHeight) {
-          console.log("到底了，开始加载数据");
-          this.reqRecords()
+        if (scrollTop + clientHeight >= scrollHeight) {
+          this.reqRecords();
         }
-      })
-    }
+      });
+    },
   },
 });
 </script>

@@ -1,4 +1,4 @@
-port: 54639
+port: 80
 show:   # 相对`static`字段的路径
     - 1.jpg
     - 2.jpg

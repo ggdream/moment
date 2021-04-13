@@ -88,15 +88,13 @@ export default Vue.extend({
         this.snackbar = true;
         return;
       }
-      this.dialog = false;
-      // TODO: resolve the problem
-      //   if (res.code !== 0) {
-      //     this.verifyMsg = res.msg;
-      //     this.snackbar = true;
-      //   } else {
-      //     this.token = res.data;
-      //     this.dialog = false;
-      //   }
+      if (res.code !== 0) {
+        this.verifyMsg = res.msg;
+        this.snackbar = true;
+      } else {
+        this.token = res.data;
+        this.dialog = false;
+      }
     },
     async addImage(pos: number, file: File) {
       const res = await this.$http.uploadImage(file);
@@ -106,13 +104,12 @@ export default Vue.extend({
       marker.$img2Url(pos, res.data);
     },
     async onSave(value: string, render: string) {
-      console.log(render);
       try {
         const res = await this.$http.setRecord({
           label: value.split("\n")[0],
           subtitle: new Date().toString(),
           image: "1.jpg",
-          text: value,
+          text: render,
         });
         this.verifyMsg = res.msg;
       } catch (error) {

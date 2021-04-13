@@ -2,9 +2,9 @@ package safety
 
 import (
 	"crypto/rsa"
-	"fmt"
 	"unsafe"
 
+	"github.com/ggdream/crypto"
 	. "github.com/ggdream/crypto/rsa"
 	"github.com/ggdream/moment/global"
 )
@@ -16,6 +16,9 @@ func GenerateKeyPairs() (string, *rsa.PublicKey) {
 }
 
 func VerifySign(text, hash string) bool {
-	fmt.Println(*global.PublicKey)
-	return Verify(*(*[]byte)(unsafe.Pointer(&text)), *(*[]byte)(unsafe.Pointer(&hash)), global.PublicKey)
+	base, err := crypto.DeBase64(hash)
+	if err != nil {
+		return false
+	}
+	return Verify(*(*[]byte)(unsafe.Pointer(&text)), base, global.PublicKey)
 }
