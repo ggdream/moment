@@ -28,7 +28,7 @@ func GetRecord(c *gin.Context) {
 		res = append(res, &model.Record{
 			Label: v.Label,
 			SubTitle: v.SubTitle,
-			Image: path.Join("/o", "images", v.Image),
+			Image: path.Join("/o", v.Image),
 			Vid: v.Vid,
 			DateTime: v.DateTime,
 		})
