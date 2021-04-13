@@ -23,7 +23,7 @@ func SetRecord(c *gin.Context) {
 		return
 	}
 
-	vid := fmt.Sprintf("%x", md5.Sum([]byte(form.Text)))
+	vid := fmt.Sprintf("%x", md5.Sum([]byte(form.Text)))[8:24]
 	record := &model.Record{
 		Label: form.Label,
 		SubTitle: form.SubTitle,

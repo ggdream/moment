@@ -1,7 +1,6 @@
 package login
 
 import (
-	"fmt"
 	"strconv"
 	"time"
 
@@ -19,7 +18,12 @@ func Verify(c *gin.Context)  {
 		errno.Return(c, errno.FAILED, nil, "表单错误")
 		return
 	}
-	fmt.Println(strconv.Itoa(form.Time)+form.Salt)
+
+	if (form.Time + 1000*60 > int(time.Now().UnixNano())) {
+		errno.Return(c, errno.FAILED, nil, "表单过期")
+		return
+	}
+
 	if !safety.VerifySign(strconv.Itoa(form.Time)+form.Salt, form.Sign) {
 		errno.Return(c, errno.FAILED, nil, "认证失败")
 		return
