@@ -1,6 +1,6 @@
 export default class Config {
     static baseURL = location.origin + '/x'
-    static timeout = 3000
+    static timeout = 30000
     static iv = '0102030405060708'
 
     static mock = [

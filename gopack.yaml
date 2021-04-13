@@ -5,12 +5,12 @@ description: my new project.
 repository: github.com/ggdream/moment
 env: go1.16.3-windows/amd64
 target:
+  - linux/arm64
   - windows/386
   - windows/amd64
   - linux/386
   - linux/amd64
   - linux/arm
-  - linux/arm64
   - darwin/amd64
   - darwin/arm64
 scripts: {}
