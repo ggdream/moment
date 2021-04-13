@@ -71,7 +71,6 @@ export default Vue.extend({
     async verify() {
       const time = new Date().getTime();
       const salt = random(16);
-      console.log(time + salt);
       const sign = Safety.signVerify(time + salt, this.value);
       if (sign === false) {
         this.verifyMsg = "私钥可能存在一些问题~~";

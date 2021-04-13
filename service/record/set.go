@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/ggdream/moment/global"
 	"os"
-	"unsafe"
 
 	"github.com/ggdream/moment/model"
 	"github.com/ggdream/moment/tools/errno"
@@ -39,7 +38,7 @@ func SetRecord(c *gin.Context) {
 		return
 	}
 
-	if err := os.WriteFile(paths.GetMarkdFilePath(global.Config.File, vid), *(*[]byte)(unsafe.Pointer(&form.Text)), 0666); err != nil {
+	if err := os.WriteFile(paths.GetMarkdFilePath(global.Config.File, vid), []byte(form.Text), 0666); err != nil {
 		errno.Return(c, errno.FAILED, nil, "写入Mark文件失败")
 		return
 	}

@@ -39,7 +39,6 @@ export default Vue.extend({
           throw "发生了错误";
         }
         this.content = res.data;
-        console.log(res.data)
       } catch (error) {
         this.snackbar = true;
       }

@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"unsafe"
 )
 
 
@@ -21,7 +20,7 @@ func UploadImage(c *gin.Context)  {
 		return
 	}
 	str := file.Filename + strconv.FormatInt(file.Size, 10) + time.Now().String()
-	token := fmt.Sprintf("%x", md5.Sum(*(*[]byte)(unsafe.Pointer(&str))))
+	token := fmt.Sprintf("%x", md5.Sum([]byte(str)))
 
 	if err := c.SaveUploadedFile(file, paths.GetImagesPath(global.Config.File, token, strings.Split(file.Filename, ".")[1])); err != nil {
 		errno.Return(c, errno.FAILED, nil, "图片保存失败")
