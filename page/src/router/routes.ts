@@ -15,7 +15,8 @@ const routes: Array<RouteConfig> = [
     {
         path: '/record',
         name: 'record',
-        component: () => import('@/views/record/Record.vue')
+        component: () => import('@/views/record/Record.vue'),
+        meta: { keepAlive: false }
     },
     {
         path: '/edit',

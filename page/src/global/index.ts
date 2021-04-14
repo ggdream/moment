@@ -1,5 +1,5 @@
 export default class Config {
-    static baseURL = location.origin + '/x'
+    static baseURL = 'http://127.0.0.1:54639/x'
     static timeout = 30000
     static iv = '0102030405060708'
 

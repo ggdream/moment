@@ -21,12 +21,13 @@ export default class ServiceNet extends Request {
     }
     getText = (vid: string): Promise<model.TextImple> => this.get<model.TextImple>('/record/text', {v: vid})
     getTokenByVerify = (data: model.VerifyModel): Promise<model.VerifyImple> => this.post<model.VerifyImple>('/verify', data)
-    async uploadImage(file: File): Promise<model.ImageImple> {
+    async uploadImage(file: File, token: string): Promise<model.ImageImple> {
         const form = new FormData()
         form.append('file', file)
         const res = await this.requester.post('/record/image', form, {
             headers: {
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
+                token
             }
         })
         return res.data

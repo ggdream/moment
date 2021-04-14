@@ -27,6 +27,10 @@
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-fab-transition>
+
+    <v-snackbar v-model="snackbar">
+      服务器暂时无法连接奥~~
+    </v-snackbar>
   </div>
 </template>
 
@@ -41,14 +45,18 @@ export default Vue.extend({
     return {
       data: [] as Array<Record>,
       isEnd: false,
+      snackbar: false,
     };
   },
   components: {
     RecordBox,
   },
-  created() {
-    this.wheelListener();
-    this.reqRecords();
+  mounted() {
+    this.reqRecords()
+      .then(() => this.wheelListener())
+      .catch(() => {
+        this.snackbar = true;
+      });
   },
   methods: {
     async reqRecords() {
@@ -59,7 +67,7 @@ export default Vue.extend({
       });
       if (res.code !== 0) return;
       if (res.data.length !== 0) {
-        this.data = this.data.concat(res.data);
+        this.data.push.apply(this.data, res.data);
       } else {
         this.isEnd = true;
       }
