@@ -12,10 +12,10 @@ func ShowInfo(c *gin.Context) {
 	show := global.Config.Show
 	showes := make([]string, 0)
 	for _, v := range show {
-		showes = append(showes, "http://"+path.Join("127.0.0.1:54639/o", v))
+		showes = append(showes, global.Config.Server+path.Join("/o", v))
 	}
 	errno.Return(c, errno.SUCCESS, gin.H{
-		"avatar": "http://"+path.Join("127.0.0.1:54639/o", global.Config.Avatar),
+		"avatar": global.Config.Server+path.Join("/o", global.Config.Avatar),
 		"show": showes,
 	}, "获取成功")
 }

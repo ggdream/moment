@@ -1,4 +1,6 @@
 port: 80
+server: 127.0.0.1:54639
+
 show:   # 相对`static`字段的路径
     - 1.jpg
     - 2.jpg

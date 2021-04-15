@@ -4,13 +4,13 @@ import (
 	"embed"
 	"fmt"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 	"path"
 	"strings"
 
 	"github.com/ggdream/moment/global"
 )
-
 
 func transPort(port int) string {
 	return fmt.Sprintf(":%d", port)
@@ -28,10 +28,21 @@ func frontServer(fs embed.FS) {
 func AddPrefix(prefix string, h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		secArray := strings.Split(r.URL.Path, "/")
-		// 如果不是静态资源，则一律重定向值至根目录，即 "/"
+		// 如果不是静态资源，
+		// 1.不包含/x和/o：认定为前端路由，一律重定向值至根目录，即 "/"
+		// 2.包含/x和/o：反向代理到global.Config.Server (`server` field defined in config file)
 		if !strings.ContainsAny(secArray[len(secArray)-1], ".") && r.URL.Path != "/" {
-			http.Redirect(w, r, "/", http.StatusMovedPermanently)
-			return
+			if strings.HasPrefix(r.URL.Path, "/o") || strings.HasPrefix(r.URL.Path, "/x") {
+				remote, err := url.Parse(global.Config.Server)
+				if err != nil {
+					panic(err)
+				}
+				proxy := httputil.NewSingleHostReverseProxy(remote)
+				proxy.ServeHTTP(w, r)
+			} else {
+				http.Redirect(w, r, "/", http.StatusMovedPermanently)
+				return
+			}
 		}
 
 		var p string

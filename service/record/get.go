@@ -28,7 +28,7 @@ func GetRecord(c *gin.Context) {
 		res = append(res, &model.Record{
 			Label: v.Label,
 			SubTitle: v.SubTitle,
-			Image: "http://127.0.0.1:54639"+path.Join("/o/images/", v.Image),
+			Image: global.Config.Server+path.Join("/o/images/", v.Image),
 			Vid: v.Vid,
 			DateTime: v.DateTime,
 		})

@@ -2,9 +2,11 @@ package config
 
 import (
 	"encoding/json"
-	"github.com/ggdream/moment/model"
 	"os"
 	"path/filepath"
+	"strings"
+
+	"github.com/ggdream/moment/model"
 
 	"gopkg.in/yaml.v2"
 )
@@ -42,6 +44,13 @@ func handler(config *Config, globalRecords *[]*model.Record) error {
 			config.Port = 443
 		}
 	}
+
+	if config.Server == "" {
+		config.Server = "http://127.0.0.1:54639"
+	} else if !strings.HasPrefix(config.Server, "http") {
+		config.Server = "http://" + config.Server
+	}
+
 	if config.Avatar == "" {
 		config.Avatar = "avatar.jpg"
 	}

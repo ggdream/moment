@@ -3,6 +3,8 @@ package config
 
 type Config struct {
 	Port		int			`yaml:"port"`
+	Server		string		`yaml:"server"`
+
 	Tls			*Tls		`yaml:"tls"`
 
 	File		string		`yaml:"file"`

@@ -26,5 +26,5 @@ func UploadImage(c *gin.Context)  {
 		errno.Return(c, errno.FAILED, nil, "图片保存失败")
 		return
 	}
-	errno.Return(c, errno.SUCCESS, "http://127.0.0.1:54639/o/images/"+token+"."+strings.Split(file.Filename, ".")[1], "图片保存成功")
+	errno.Return(c, errno.SUCCESS, global.Config.Server+"/o/images/"+token+"."+strings.Split(file.Filename, ".")[1], "图片保存成功")
 }
